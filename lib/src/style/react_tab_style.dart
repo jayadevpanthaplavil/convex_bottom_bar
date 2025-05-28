@@ -29,8 +29,7 @@ class ReactTabStyle extends InnerBuilder {
   /// Size for Text and icon gap.
   final double? textIconGap;
 
-  /// Size for icon.
-  final double? iconSize;
+
 
   /// Create style builder.
   ReactTabStyle({
@@ -39,7 +38,6 @@ class ReactTabStyle extends InnerBuilder {
     required Color color,
     required this.curve,
     this.textIconGap = 0,
-    this.iconSize,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
@@ -56,7 +54,7 @@ class ReactTabStyle extends InnerBuilder {
           child: BlendImageIcon(
             item.activeIcon ?? item.icon,
             color: item.blend ? activeColor : null,
-            size: iconSize ?? style.activeIconSize,
+            size: item.iconSize ?? style.activeIconSize,
           ),
         ),
       ];
@@ -78,7 +76,7 @@ class ReactTabStyle extends InnerBuilder {
       BlendImageIcon(item.icon,
           color: item.blend ? color : null,
           // size: style.iconSize
-          size: iconSize ?? style.iconSize
+          size: item.iconSize ?? style.iconSize
       ),
     ];
     if (!noLabel) {

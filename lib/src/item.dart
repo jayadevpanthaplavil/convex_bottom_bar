@@ -30,6 +30,9 @@ class TabItem<T> {
   /// Tab inactive text style.
   final TextStyle? inactiveTextStyle;
 
+  /// Size for icon.
+  final double? iconSize;
+
   /// IconData or Image.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-image.gif)
@@ -50,6 +53,7 @@ class TabItem<T> {
     this.title = '',
     required this.icon,
     this.activeIcon,
+    this.iconSize,
     bool? isIconBlend,
   })  : assert(icon is IconData || icon is Widget,
             'TabItem only support IconData and Widget'),
