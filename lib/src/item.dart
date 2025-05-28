@@ -24,6 +24,12 @@ class TabItem<T> {
   /// Tab text.
   final String? title;
 
+  /// Tab active text style.
+  final TextStyle? activeTextStyle;
+
+  /// Tab inactive text style.
+  final TextStyle? inactiveTextStyle;
+
   /// IconData or Image.
   ///
   /// ![](https://github.com/hacktons/convex_bottom_bar/raw/master/doc/appbar-image.gif)
@@ -38,6 +44,8 @@ class TabItem<T> {
 
   /// Create item
   const TabItem({
+    this.activeTextStyle,
+    this.inactiveTextStyle,
     this.fontFamily,
     this.title = '',
     required this.icon,
