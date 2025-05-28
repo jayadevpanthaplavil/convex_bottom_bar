@@ -162,6 +162,9 @@ class ConvexAppBar extends StatefulWidget {
   /// The curve to use in the forward direction. Only works when tab style is not fixed.
   final Curve curve;
 
+  /// Gap between icon and text.
+  final double? textIconGap;
+
   /// Construct a new appbar with internal style.
   ///
   /// ```dart
@@ -221,6 +224,7 @@ class ConvexAppBar extends StatefulWidget {
     // double? curveSize,
     double? curveWidth,
     double? curveHeight,
+    double? textIconGap,
     double? top,
     double? elevation,
     double? cornerRadius,
@@ -235,7 +239,7 @@ class ConvexAppBar extends StatefulWidget {
       color: color ?? Colors.white60,
       activeColor: activeColor ?? Colors.white,
       backgroundColor: backgroundColor ?? Colors.blue,
-      curve: curve ?? Curves.easeInOut,
+      curve: curve ?? Curves.easeInOut, textIconGap: textIconGap,
     ),
     onTap: onTap,
     onTapNotify: onTabNotify,
@@ -294,7 +298,7 @@ class ConvexAppBar extends StatefulWidget {
     this.elevation,
     this.cornerRadius,
     this.curve = Curves.easeInOut,
-    this.chipBuilder,
+    this.chipBuilder, this.textIconGap,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
         'initial index should < $count'),

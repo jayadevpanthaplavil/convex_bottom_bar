@@ -34,7 +34,7 @@ DelegateBuilder supportedStyle(
   required Color color,
   required Color activeColor,
   required Color backgroundColor,
-  required Curve curve,
+  required Curve curve, double? textIconGap,
 }) {
   assert(items.isNotEmpty, 'items should not be empty');
   assert(
@@ -67,6 +67,7 @@ DelegateBuilder supportedStyle(
         color: color,
         activeColor: activeColor,
         curve: curve,
+        textIconGap: textIconGap
       );
       break;
     case TabStyle.reactCircle:
