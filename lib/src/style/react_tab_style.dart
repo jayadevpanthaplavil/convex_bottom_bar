@@ -48,7 +48,8 @@ class ReactTabStyle extends InnerBuilder {
           child: BlendImageIcon(
             item.activeIcon ?? item.icon,
             color: item.blend ? activeColor : null,
-            size: style.activeIconSize,
+            // size: style.activeIconSize,
+            size: style.iconSize,
           ),
         ),
       ];
