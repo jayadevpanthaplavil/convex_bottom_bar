@@ -225,7 +225,6 @@ class ConvexAppBar extends StatefulWidget {
     double? curveWidth,
     double? curveHeight,
     double? textIconGap,
-    double? iconSize,
     double? top,
     double? elevation,
     double? cornerRadius,
