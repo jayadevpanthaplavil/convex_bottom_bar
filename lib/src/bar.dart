@@ -164,6 +164,9 @@ class ConvexAppBar extends StatefulWidget {
 
   /// Gap between icon and text.
   final double? textIconGap;
+  
+  /// Icon size
+  final double? iconSize;
 
   /// Construct a new appbar with internal style.
   ///
@@ -225,6 +228,7 @@ class ConvexAppBar extends StatefulWidget {
     double? curveWidth,
     double? curveHeight,
     double? textIconGap,
+    double? iconSize,
     double? top,
     double? elevation,
     double? cornerRadius,
@@ -239,7 +243,7 @@ class ConvexAppBar extends StatefulWidget {
       color: color ?? Colors.white60,
       activeColor: activeColor ?? Colors.white,
       backgroundColor: backgroundColor ?? Colors.blue,
-      curve: curve ?? Curves.easeInOut, textIconGap: textIconGap,
+      curve: curve ?? Curves.easeInOut, textIconGap: textIconGap, iconSize: iconSize,
     ),
     onTap: onTap,
     onTapNotify: onTabNotify,
@@ -298,7 +302,7 @@ class ConvexAppBar extends StatefulWidget {
     this.elevation,
     this.cornerRadius,
     this.curve = Curves.easeInOut,
-    this.chipBuilder, this.textIconGap,
+    this.chipBuilder, this.textIconGap, this.iconSize,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
         'initial index should < $count'),
