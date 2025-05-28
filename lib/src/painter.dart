@@ -41,6 +41,9 @@ class ConvexPainter extends CustomPainter {
   /// RLT support
   final TextDirection? textDirection;
 
+  /// Custom Mountain Notch
+  final bool enableCustomMountainNotch;
+
   /// Create painter
   ConvexPainter({
     required this.top,
@@ -53,6 +56,8 @@ class ConvexPainter extends CustomPainter {
     double sigma = 2,
     Gradient? gradient,
     double? cornerRadius,
+    this.enableCustomMountainNotch
+    = false,
   }) : super(repaint: leftPercent) {
     _paint.color = color;
     try {
@@ -63,7 +68,7 @@ class ConvexPainter extends CustomPainter {
       debugPrintStack(label: 'ElevationError', stackTrace: s);
     }
     _gradient.gradient = gradient;
-    _shape = ConvexNotchedRectangle(radius: cornerRadius ?? 0);
+    _shape = ConvexNotchedRectangle(radius: cornerRadius ?? 0, enableCustomMountainNotch: enableCustomMountainNotch);
   }
 
   @override
@@ -73,7 +78,7 @@ class ConvexPainter extends CustomPainter {
         ? (1 - leftPercent.value)
         : leftPercent.value;
     var guest =
-        Rect.fromLTWH(size.width * percent - width / 2, top, width, height);
+    Rect.fromLTWH(size.width * percent - width / 2, top, width, height);
     _gradient.updateWith(_paint, size: host);
     var path = _shape.getOuterPath(host, guest);
     canvas.drawPath(path, _shadowPaint);

@@ -32,6 +32,12 @@ import 'style/styles.dart';
 /// Default size of the curve line.
 const double CONVEX_SIZE = 80;
 
+/// Default height of the curve line.
+const double CONVEX_HEIGHT = 30;
+
+/// Default width of the curve line.
+const double CONVEX_WIDTH = 50;
+
 /// Default height of the AppBar.
 const double BAR_HEIGHT = 50;
 
@@ -129,6 +135,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Disable access of DefaultTabController to avoid unexpected conflict.
   final bool disableDefaultTabController;
 
+  /// Enable custom mountain notch
+  final bool enableCustomMountainNotch;
+
   /// Tab count.
   final int count;
 
@@ -136,7 +145,13 @@ class ConvexAppBar extends StatefulWidget {
   final double? height;
 
   /// Size of the curve line.
-  final double? curveSize;
+  // final double? curveSize;
+
+  /// Width of the curve line.
+  final double? curveWidth;
+
+  /// Height of the curve line.
+  final double? curveHeight;
 
   /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
   final double? top;
@@ -193,6 +208,7 @@ class ConvexAppBar extends StatefulWidget {
     required List<TabItem> items,
     int? initialActiveIndex,
     bool? disableDefaultTabController,
+    bool? enableCustomMountainNotch,
     GestureTapIndexCallback? onTap,
     TapNotifier? onTabNotify,
     TabController? controller,
@@ -202,7 +218,9 @@ class ConvexAppBar extends StatefulWidget {
     Color? shadowColor,
     Gradient? gradient,
     double? height,
-    double? curveSize,
+    // double? curveSize,
+    double? curveWidth,
+    double? curveHeight,
     double? top,
     double? elevation,
     double? cornerRadius,
@@ -210,32 +228,35 @@ class ConvexAppBar extends StatefulWidget {
     Curve? curve,
     ChipBuilder? chipBuilder,
   }) : this.builder(
-          key: key,
-          itemBuilder: supportedStyle(
-            style ?? TabStyle.reactCircle,
-            items: items,
-            color: color ?? Colors.white60,
-            activeColor: activeColor ?? Colors.white,
-            backgroundColor: backgroundColor ?? Colors.blue,
-            curve: curve ?? Curves.easeInOut,
-          ),
-          onTap: onTap,
-          onTapNotify: onTabNotify,
-          controller: controller,
-          backgroundColor: backgroundColor,
-          shadowColor: shadowColor,
-          count: items.length,
-          initialActiveIndex: initialActiveIndex,
-          disableDefaultTabController: disableDefaultTabController ?? false,
-          gradient: gradient,
-          height: height,
-          curveSize: curveSize,
-          top: top,
-          elevation: elevation,
-          cornerRadius: cornerRadius,
-          curve: curve ?? Curves.easeInOut,
-          chipBuilder: chipBuilder,
-        );
+    key: key,
+    itemBuilder: supportedStyle(
+      style ?? TabStyle.reactCircle,
+      items: items,
+      color: color ?? Colors.white60,
+      activeColor: activeColor ?? Colors.white,
+      backgroundColor: backgroundColor ?? Colors.blue,
+      curve: curve ?? Curves.easeInOut,
+    ),
+    onTap: onTap,
+    onTapNotify: onTabNotify,
+    controller: controller,
+    backgroundColor: backgroundColor,
+    shadowColor: shadowColor,
+    count: items.length,
+    initialActiveIndex: initialActiveIndex,
+    disableDefaultTabController: disableDefaultTabController ?? false,
+    gradient: gradient,
+    height: height,
+    // curveSize: curveSize,
+    curveWidth: curveWidth,
+    enableCustomMountainNotch: enableCustomMountainNotch ?? false,
+    curveHeight: curveHeight,
+    top: top,
+    elevation: elevation,
+    cornerRadius: cornerRadius,
+    curve: curve ?? Curves.easeInOut,
+    chipBuilder: chipBuilder,
+  );
 
   /// Define a custom tab style by implement a [DelegateBuilder].
   ///
@@ -265,7 +286,10 @@ class ConvexAppBar extends StatefulWidget {
     this.shadowColor,
     this.gradient,
     this.height,
-    this.curveSize,
+    // this.curveSize,
+    this.curveWidth,
+    this.enableCustomMountainNotch = false,
+    this.curveHeight,
     this.top,
     this.elevation,
     this.cornerRadius,
@@ -273,9 +297,9 @@ class ConvexAppBar extends StatefulWidget {
     this.chipBuilder,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
-            'initial index should < $count'),
+        'initial index should < $count'),
         assert(cornerRadius == null || cornerRadius >= 0,
-            'cornerRadius must >= 0'),
+        'cornerRadius must >= 0'),
         super(key: key);
 
   /// Construct a new appbar with badge.
@@ -296,34 +320,37 @@ class ConvexAppBar extends StatefulWidget {
   /// )
   /// ```
   factory ConvexAppBar.badge(
-    Map<int, dynamic> badge, {
-    Key? key,
-    // config for badge
-    Color? badgeTextColor,
-    Color? badgeColor,
-    EdgeInsets? badgePadding,
-    EdgeInsets? badgeMargin,
-    double? badgeBorderRadius,
-    // parameter for appbar
-    required List<TabItem> items,
-    int? initialActiveIndex,
-    bool? disableDefaultTabController,
-    GestureTapIndexCallback? onTap,
-    TapNotifier? onTabNotify,
-    TabController? controller,
-    Color? color,
-    Color? activeColor,
-    Color? backgroundColor,
-    Color? shadowColor,
-    Gradient? gradient,
-    double? height,
-    double? curveSize,
-    double? top,
-    double? elevation,
-    double? cornerRadius,
-    TabStyle? style,
-    Curve? curve,
-  }) {
+      Map<int, dynamic> badge, {
+        Key? key,
+        // config for badge
+        Color? badgeTextColor,
+        Color? badgeColor,
+        EdgeInsets? badgePadding,
+        EdgeInsets? badgeMargin,
+        double? badgeBorderRadius,
+        // parameter for appbar
+        required List<TabItem> items,
+        int? initialActiveIndex,
+        bool? disableDefaultTabController,
+        GestureTapIndexCallback? onTap,
+        TapNotifier? onTabNotify,
+        TabController? controller,
+        Color? color,
+        Color? activeColor,
+        Color? backgroundColor,
+        Color? shadowColor,
+        Gradient? gradient,
+        double? height,
+        // double? curveSize,
+        double? curveWidth,
+        bool? enableCustomMountainNotch,
+        double? curveHeight,
+        double? top,
+        double? elevation,
+        double? cornerRadius,
+        TabStyle? style,
+        Curve? curve,
+      }) {
     DefaultChipBuilder? chipBuilder;
     if (badge.isNotEmpty) {
       chipBuilder = DefaultChipBuilder(
@@ -349,7 +376,10 @@ class ConvexAppBar extends StatefulWidget {
       shadowColor: shadowColor,
       gradient: gradient,
       height: height,
-      curveSize: curveSize,
+      // curveSize: curveSize,
+      curveWidth: curveWidth,
+      enableCustomMountainNotch: enableCustomMountainNotch ?? false,
+      curveHeight: curveHeight,
       top: top,
       elevation: elevation,
       cornerRadius: cornerRadius,
@@ -386,10 +416,10 @@ class ConvexAppBarState extends State<ConvexAppBar>
         ErrorSummary('ConvexAppBar is configured with cornerRadius'),
         ErrorDescription(
             'Currently the corner only work for fixed style, if you are using '
-            'other styles, the convex shape can be broken on the first and last tab item '),
+                'other styles, the convex shape can be broken on the first and last tab item '),
         ErrorHint(
             'You should use TabStyle.fixed or TabStyle.fixedCircle to make the'
-            ' background display with topLeft/topRight corner'),
+                ' background display with topLeft/topRight corner'),
       ]);
     }
     _resetState();
@@ -444,8 +474,8 @@ class ConvexAppBarState extends State<ConvexAppBar>
 
   Animation<double> _updateAnimation(
       {int? from,
-      int? to,
-      Duration duration = const Duration(milliseconds: _TRANSITION_DURATION)}) {
+        int? to,
+        Duration duration = const Duration(milliseconds: _TRANSITION_DURATION)}) {
     if (from != null && (from == to) && _animation != null) {
       return _animation!;
     }
@@ -487,7 +517,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
           widget.initialActiveIndex != null) {
         throw FlutterError(
             'ConvexAppBar.initialActiveIndex is not allowed when working with TabController.\n'
-            'Please setup through TabController.initialIndex, or disable DefaultTabController by #disableDefaultTabController');
+                'Please setup through TabController.initialIndex, or disable DefaultTabController by #disableDefaultTabController');
       }
       return true;
     }());
@@ -532,7 +562,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
   Widget build(BuildContext context) {
     // take care of iPhoneX' safe area at bottom edge
     final additionalBottomPadding =
-        math.max(MediaQuery.of(context).padding.bottom, 0.0);
+    math.max(MediaQuery.of(context).padding.bottom, 0.0);
     final convexIndex = isFixed() ? (widget.count ~/ 2) : _currentIndex;
     final active = isFixed() ? convexIndex == _currentIndex : true;
 
@@ -559,15 +589,17 @@ class ConvexAppBarState extends State<ConvexAppBar>
           child: CustomPaint(
             painter: ConvexPainter(
               top: widget.top ?? CURVE_TOP,
-              width: widget.curveSize ?? CONVEX_SIZE,
-              height: widget.curveSize ?? CONVEX_SIZE,
+              // width: widget.curveSize ?? CONVEX_SIZE,
+              // height: widget.curveSize ?? CONVEX_SIZE,
+              width: widget.enableCustomMountainNotch ? (widget.curveWidth ?? CONVEX_WIDTH) : (widget.curveWidth ?? CONVEX_SIZE),
+              height: widget.enableCustomMountainNotch ? (widget.curveHeight ?? CONVEX_HEIGHT) : (widget.curveHeight ?? CONVEX_SIZE),
               color: widget.backgroundColor ?? Colors.blue,
               shadowColor: widget.shadowColor ?? Colors.black38,
               gradient: widget.gradient,
               sigma: widget.elevation ?? ELEVATION,
               leftPercent: percent,
               textDirection: textDirection,
-              cornerRadius: widget.cornerRadius,
+              cornerRadius: widget.cornerRadius, enableCustomMountainNotch: widget.enableCustomMountainNotch,
             ),
           ),
         ),

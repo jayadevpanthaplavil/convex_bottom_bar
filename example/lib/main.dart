@@ -50,15 +50,16 @@ class HelloConvexAppBar extends StatelessWidget {
       appBar: AppBar(title: Text('Hello ConvexAppBar')),
       body: Center(
           child: TextButton(
-        child: Text('Click to show full example'),
-        onPressed: () => Navigator.of(context).pushNamed('/bar'),
-      )),
+            child: Text('Click to show full example'),
+            onPressed: () => Navigator.of(context).pushNamed('/bar'),
+          )),
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.react,
+        enableCustomMountainNotch: true,
         items: [
-          TabItem(icon: Icons.list),
-          TabItem(icon: Icons.calendar_today),
-          TabItem(icon: Icons.assessment),
+          TabItem(icon: Icons.list, activeIcon: Icons.ac_unit, title: "List"),
+          TabItem(icon: Icons.calendar_today, title: "Calendar"),
+          TabItem(icon: Icons.assessment, title: "Stats"),
         ],
         initialActiveIndex: 1,
         onTap: (int i) => print('click index=$i'),
